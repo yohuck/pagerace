@@ -32,21 +32,25 @@ const BookSearch = () => {
 
     return (
         <div>
-            <h1>Book Search</h1>
-            <input
-                type="text"
-                placeholder="Title"
-                onBlur={(e) => setTitle(e.target.value)}
-            />
-            <input
-                type="text"
-                placeholder="Author"
-                onBlur={(e) => setAuthor(e.target.value)}
-            />
-            <ul>
+            <h1 className='text-4xl text-white font-black text-center'>Book Search</h1>
+            <div className="my-4 flex gap-1 flex-wrap justify-center">
+                <input
+                    type="text"
+                    placeholder="Title"
+                    className='border-2 border-black p-1'
+                    onBlur={(e) => setTitle(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="Author"
+                    className='border-2 border-black p-1'
+                    onBlur={(e) => setAuthor(e.target.value)}
+                />
+            </div>
+            <ul className='text-white m-2'>
                 {books.numFound > 0 ? 
-                    books.docs.map((book) => (
-                        <li key={book.key}>{book.title} - { book.subtitle} - {book.number_of_pages_median} pages - {
+                    books.docs.map((book, index) => (
+                        <li className={`border p-3 my-2 border-black ${index % 2 ? 'bg-[#502987]' : 'bg-[#2b1854]'}` } key={book.key}>{book.title} - {book.number_of_pages_median} pages - {
                             book.author_name.map(
                                 (author, index) => (
                      
@@ -55,7 +59,7 @@ const BookSearch = () => {
                             )
                         }</li>
                     ))
-                 : <li>No books</li>} 
+                 : <li className='border p-3 border-black bg-slate-100 m-4'>No books</li>} 
             </ul>
         </div>
     );
