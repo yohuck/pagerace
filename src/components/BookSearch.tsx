@@ -1,16 +1,20 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import  BookRow  from "./BookRow";
 
 interface returnedBooks {
   numFound: number;
   docs?: book[];
 }
 
-interface book {
+export interface book {
   key: string;
   title: string;
   author_name: string[];
+  isbn: string;
   number_of_pages_median: number;
+  subtitle?: string;
+  first_publish_year?: number;
   [key: string]: unknown;
 }
 
@@ -68,23 +72,10 @@ const BookSearch = () => {
           onBlur={(e) => setAuthor(e.target.value)}
         />
       </div>
-      <ul className="m-2 text-white">
+      <ul className="m-2 text-white flex flex-wrap justify-center">
         {books.numFound > 0 ? (
-          books.docs?.map((book, index) => (
-            <li
-              className={`my-2 max-w-[800px] border border-black p-3 hover:opacity-70 ${
-                index % 2 ? "bg-[#502987]" : "bg-[#2b1854]"
-              }`}
-              key={book.key}
-            >
-              {book.title} - {book.number_of_pages_median} pages -{" "}
-              {book.author_name?.map((author, index) => (
-                <span key={index}>
-                  {author}
-                  {index > 0 ? " " : " "}
-                </span>
-              ))}
-            </li>
+          books.docs?.filter(book => book.number_of_pages_median > 0 && book.isbn?.length > 0).map((book, index) => (
+            <BookRow key={index} book={book} index={index} />
           ))
         ) : (
           <li className="m-4 border border-black bg-slate-900 p-3">
