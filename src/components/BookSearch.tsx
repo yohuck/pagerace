@@ -1,16 +1,38 @@
 import React, { useState, useEffect } from 'react';
 
+interface returnedBooks  {
+    numFound: number;
+    docs?: book[];
+}
+
+interface book {
+    key: string;
+    title: string;
+    author_name: string[];
+    number_of_pages_median: number;
+    [key: string]: unknown;
+}
+
 const BookSearch = () => {
-    const [title, setTitle] = useState('');
-    const [author, setAuthor] = useState('');
-    const [books, setBooks] = useState([]);
+    const [title, setTitle] = useState<string>('');
+    const [author, setAuthor] = useState<string>('');
+    const [books, setBooks] = useState<returnedBooks>({numFound: 0});
 
     useEffect(() => {
-        if (title) {
-            fetch(`http://openlibrary.org/search.json?title=${title}`)
-                .then((res) => res.json())
-                .then((data) => setBooks(data));
-        }
+     
+            if (title) {
+                try {
+                    fetch(`http://openlibrary.org/search.json?title=${title}`)
+                        .then((res) => res.json())
+                        .then((data) => setBooks(data));
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            }
+        
+    
+       
     }, [title]);
 
     useEffect(() => {
@@ -49,9 +71,9 @@ const BookSearch = () => {
             </div>
             <ul className='text-white m-2'>
                 {books.numFound > 0 ? 
-                    books.docs.map((book, index) => (
-                        <li className={`border p-3 my-2 border-black ${index % 2 ? 'bg-[#502987]' : 'bg-[#2b1854]'}` } key={book.key}>{book.title} - {book.number_of_pages_median} pages - {
-                            book.author_name.map(
+                    books.docs?.map((book, index) => (
+                        <li className={`border max-w-[800px] hover:opacity-70 p-3 my-2 border-black ${index % 2 ? 'bg-[#502987]' : 'bg-[#2b1854]'}` } key={book.key}>{book.title} - {book.number_of_pages_median} pages - {
+                            book.author_name?.map(
                                 (author, index) => (
                      
                                     <span key={index}>{author}{index > 0 ? ' ' : ' '}</span>
