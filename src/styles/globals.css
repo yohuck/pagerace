@@ -6,9 +6,6 @@
     box-shadow: 5px 5px black;
     }
 
-    .exposegrid:last-child {
-  margin-right: auto;
-}
 
 .dfn {
   position: relative;
@@ -24,6 +21,7 @@
   bottom: 100%;
   left: 0%;
   width: 300px;
+  border-radius: 7px;
 }
 
 

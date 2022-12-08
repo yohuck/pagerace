@@ -1,6 +1,9 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import  BookRow  from "./BookRow";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBook, faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 interface returnedBooks {
   numFound: number;
@@ -22,6 +25,7 @@ const BookSearch = () => {
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
   const [books, setBooks] = useState<returnedBooks>({ numFound: 0 });
+  const { data: sessionData } = useSession();
 
   useEffect(() => {
     if (title.split("").length > 2) {
@@ -52,19 +56,23 @@ const BookSearch = () => {
   //     }
   // ), [books]);
 
-  return (
-    <div className="flex flex-col items-center">
-      <h1 className="text-center text-5xl font-black tracking-tight">
+   return ( sessionData &&
+    <div className="flex flex-col items-center bg-neutral-200 min-h-screen">
+      <h1 className="text-center text-5xl md:text-8xl font-black tracking-tight">
         BookRace
       </h1>
-      <Link className="boxshadow text-center  w-fit mx-auto m-2 px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" href="/">HOME</Link>
-      <div className="my-4 flex flex-wrap justify-center gap-4">
+ 
+
+      <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight">Find a book </h2>
+      <Link className="fixed left-5 boxshadow text-center  w-fit  m-2 px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" href="/"><FontAwesomeIcon icon={faBook} size="xl" className="mx-1" /></Link>
+      <Link className="fixed left-5 boxshadow text-center  w-fit  m-2 mt-[4.5rem] px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" href="/"><FontAwesomeIcon icon={faBookmark} size="xl" className="mx-1" /></Link>
+      <div className="my-4 flex flex-wrap justify-center gap-4 text-2xl font-bold items-center">
         <input
           type="text"
           placeholder="Title"
           className="boxshadow border-2 border-black p-4 rounded-md font-bold text-xl"
           onBlur={(e) => setTitle(e.target.value)}
-        />
+        /> or 
         <input
           type="text"
           placeholder="Author"
@@ -82,12 +90,24 @@ const BookSearch = () => {
             ) : (
               <li className="m-4 border border-black bg-slate-900 p-3">
                 No results, try a new search
+                
               </li>
+              
             )}
+            
           </ul>
+
         
            
       </div>
-  );
+  )  ||      <div className="flex flex-col items-center">
+    <h1 className="text-center text-5xl md:text-8xl font-black tracking-tight">Please sign in</h1>
+     <button
+    className="boxshadow text-center  w-fit  m-2 px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]"
+    onClick={ () => signIn()}
+    >
+    {"Sign in"}
+    </button>
+  </div>
 };
 export default BookSearch;
