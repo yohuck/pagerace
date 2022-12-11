@@ -2,7 +2,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import  BookRow  from "./BookRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBook, faBookmark } from "@fortawesome/free-solid-svg-icons";
+import { faBook, faBookmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 interface returnedBooks {
@@ -25,14 +25,23 @@ const BookSearch = () => {
   const [title, setTitle] = useState<string>("");
   const [author, setAuthor] = useState<string>("");
   const [books, setBooks] = useState<returnedBooks>({ numFound: 0 });
+  const [ isLoading, setIsLoading] = useState(false)
   const { data: sessionData } = useSession();
 
   useEffect(() => {
     if (title.split("").length > 2) {
       try {
-        fetch(`http://openlibrary.org/search.json?title=${title}`)
-          .then((res) => res.json())
-          .then((data) => setBooks(data));
+        const fetchBooks = async () => {
+          setIsLoading(true);
+          const response = await fetch(`http://openlibrary.org/search.json?title=${title}`);
+          const json = await response.json();
+          setBooks(json)
+          setIsLoading(false)
+        }
+        fetchBooks()
+        // fetch(`http://openlibrary.org/search.json?title=${title}`)
+        //   .then((res) => res.json())
+        //   .then((data) => setBooks(data));
       } catch (error) {
         console.log(error);
       }
@@ -81,7 +90,7 @@ const BookSearch = () => {
         />
       </div>
   
-      
+          {isLoading && <p className="text-5xl text-center my-5 py-10  text-black flex-col border-black w-[30%] boxshadow bg-white justify-between rounded-md font-extrabold flex gap-10">Loading results<FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}
           <ul className=" text-white flex justify-center mx-auto flex-wrap gap-4 max-w-[1200px]">
             {books.numFound > 0 ? (
               books.docs?.filter(book => book.number_of_pages_median > 50 && book.isbn?.length > 0).map((book, index) => (
