@@ -13,7 +13,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
         }`}
         key={book.key}
       >
-      
+ 
         <div className="info">
           <p tabIndex={book.title.length > 45 ? 0 : 1} className={`font-bold text-2xl ${book.title.length > 45 && 'dfn'}`} data-title={book.title}>{book.title.length > 45 ? book.title.slice(0,45) + '...' : book.title }</p>
           <p className="mb-5">{book.first_publish_year}</p>
@@ -32,7 +32,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
         <div className="flex justify-between">
           <p className=" font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 text-white border-black bg-[#140c0d]">{book.number_of_pages_median} pages</p>
           <button onClick={() => shelf === 'Add to Shelf' ? setShelf("On Shelf") : setShelf("Add to Shelf")} className=" text-white hover:ring-[#f7e329] hover:ring font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 border-black bg-[#140d0e]">{shelf}</button>
-        </div>
+        </div> 
       </li>
        
     );
