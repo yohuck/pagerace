@@ -1,9 +1,34 @@
 import type { book } from "./BookSearch";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+
+
+
 
 const BookRow = ({ book, index }: {book: book, index: number}) => {
   const [ shelf, setShelf ] = useState<string>("Add to Shelf")
-  console.log(book)
+  const [savedBook, setSavedBook] = useState<book | null>(null)
+  const [datas, setDatas] = useState<any | null >(null)
+
+  const initialRender = useRef(true);
+
+
+  const addToShelf = (book: book) => {
+    console.log(book)
+    setShelf("Added to Shelf");
+    fetchBookDetails(book);
+  //  fetchBookDetails(book);
+  }
+
+  const fetchBookDetails = async (book: book) => {
+    const response = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${book.isbn[0]}&jscmd=data&format=json`);
+    const json = await response.json();
+    console.log(json);
+  }
+
+
+
+
+
     return (
 
         <li
@@ -31,7 +56,9 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
         </div>
         <div className="flex justify-between">
           <p className=" font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 text-white border-black bg-[#140c0d]">{book.number_of_pages_median} pages</p>
-          <button onClick={() => shelf === 'Add to Shelf' ? setShelf("On Shelf") : setShelf("Add to Shelf")} className=" text-white hover:ring-[#f7e329] hover:ring font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 border-black bg-[#140d0e]">{shelf}</button>
+          <button onClick={
+            () => shelf === 'Add to Shelf' ? addToShelf(book) : setShelf("Add to Shelf")
+            } className=" text-white hover:ring-[#f7e329] hover:ring font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 border-black bg-[#140d0e]">{shelf}</button>
         </div> 
       </li>
        
