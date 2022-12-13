@@ -4,6 +4,7 @@ import  BookRow  from "./BookRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faBookmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { signIn, signOut, useSession } from "next-auth/react";
+import Navbar from "./Navbar";
 
 interface returnedBooks {
   numFound: number;
@@ -65,7 +66,12 @@ const BookSearch = () => {
   //     }
   // ), [books]);
 
-   return ( sessionData &&
+   return (
+    
+    
+    sessionData &&
+    <>
+    <Navbar />
     <div className="flex flex-col items-center bg-neutral-200 min-h-screen">
       <h1 className="text-center text-5xl md:text-8xl font-black tracking-tight">
         BookRace
@@ -73,8 +79,7 @@ const BookSearch = () => {
  
 
       <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight">Find a book </h2>
-      <Link className="fixed left-5 boxshadow text-center  w-fit  m-2 px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" href="/"><FontAwesomeIcon icon={faBook} size="xl" className="mx-1" /></Link>
-      <Link className="fixed left-5 boxshadow text-center  w-fit  m-2 mt-[4.5rem] px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" href="/"><FontAwesomeIcon icon={faBookmark} size="xl" className="mx-1" /></Link>
+
       <div className="my-4 flex flex-wrap justify-center gap-4 text-2xl font-bold items-center">
         <input
           type="text"
@@ -108,8 +113,10 @@ const BookSearch = () => {
 
         
            
-      </div>
-  )  ||      <div className="flex flex-col items-center">
+      </div></>
+  )  ||   <>
+  <Navbar />
+    <div className="flex flex-col items-center">
     <h1 className="text-center text-5xl md:text-8xl font-black tracking-tight">Please sign in</h1>
      <button
     className="boxshadow text-center  w-fit  m-2 px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]"
@@ -117,6 +124,6 @@ const BookSearch = () => {
     >
     {"Sign in"}
     </button>
-  </div>
+  </div></> 
 };
 export default BookSearch;
