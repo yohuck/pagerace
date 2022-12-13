@@ -33,7 +33,7 @@ const BookSearch = () => {
       try {
         const fetchBooks = async () => {
           setIsLoading(true);
-          const response = await fetch(`http://openlibrary.org/search.json?title=${title}`);
+          const response = await fetch(`https://openlibrary.org/search.json?title=${title}`);
           const json = await response.json();
           setBooks(json)
           setIsLoading(false)
@@ -51,7 +51,7 @@ const BookSearch = () => {
   useEffect(() => {
     if (author.split("").length > 2) {
       console.log(author);
-      fetch(`http://openlibrary.org/search.json?author=${author}`)
+      fetch(`https://openlibrary.org/search.json?author=${author}`)
         .then((res) => res.json())
         .then((data) => setBooks(data));
     }
