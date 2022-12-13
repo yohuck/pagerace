@@ -8,7 +8,7 @@ const IndividualBookSearch =   ({isbn = '0201558025'}) => {
     const [book, setBook] = useState('');
 
     useEffect(() => {
-        fetch(`http://openlibrary.org/search.json?isbn=${isbn}`)
+        fetch(`https://openlibrary.org/search.json?isbn=${isbn}`)
             .then((res) => res.json())
             .then((data) => console.log(data))
             .catch((error) => console.log(error))
