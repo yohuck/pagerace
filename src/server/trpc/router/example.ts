@@ -15,5 +15,18 @@ export const exampleRouter = router({
   }),
   getUsers: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.user.findMany();
-  })
+  }),
+  addBook: publicProcedure
+  .input(z.object({ input: z.string().nullish() }).nullish())
+  .query(({ ctx, input }) => {
+    console.log(input ?? "no input")
+    return ctx.prisma.book.create({
+      data: {
+        title: "Crucial Conversations",
+        author: "Waylon Jennings",
+        userId: 'clblolfrd00009f00va83vney',
+        pages: "223",
+      },
+    }); }),  
+     
 });

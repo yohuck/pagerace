@@ -34,7 +34,7 @@ const BookSearch = () => {
       try {
         const fetchBooks = async () => {
           setIsLoading(true);
-          const response = await fetch(`https://openlibrary.org/search.json?title=${title}`);
+          const response = await fetch(`https://openlibrary.org/search.json?title=${title}&fields=*`);
           const json = await response.json();
           setBooks(json)
           setIsLoading(false)

@@ -1,28 +1,26 @@
 import type { book } from "./BookSearch";
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
+
+import { trpc } from "../utils/trpc";
 
 
 
 
 const BookRow = ({ book, index }: {book: book, index: number}) => {
   const [ shelf, setShelf ] = useState<string>("Add to Shelf")
-  const [savedBook, setSavedBook] = useState<book | null>(null)
-  const [datas, setDatas] = useState<any | null >(null)
+  const saveABook =  trpc.example.addBook.useQuery({input: 'test'})
 
-  const initialRender = useRef(true);
 
 
   const addToShelf = (book: book) => {
     console.log(book)
     setShelf("Added to Shelf");
-    fetchBookDetails(book);
+    saveABook;
   //  fetchBookDetails(book);
   }
 
-  const fetchBookDetails = async (book: book) => {
-    const response = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${book.isbn[0]}&jscmd=data&format=json`);
-    const json = await response.json();
-    console.log(json);
+  const saveBook = async (book: book) => {
+    console.log(book)
   }
 
 
