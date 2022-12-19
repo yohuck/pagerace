@@ -18,7 +18,7 @@ export const exampleRouter = router({
   }),
   addBook: publicProcedure
   .input(z.object({ input: z.string().nullish() }).nullish())
-  .query(({ ctx, input }) => {
+  .mutation(({ ctx, input }) => {
     console.log(input ?? "no input")
     return ctx.prisma.book.create({
       data: {

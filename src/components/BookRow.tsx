@@ -1,31 +1,31 @@
 import type { book } from "./BookSearch";
 import { useState } from "react";
 
-import { trpc } from "../utils/trpc";
-
-
 
 
 const BookRow = ({ book, index }: {book: book, index: number}) => {
   const [ shelf, setShelf ] = useState<string>("Add to Shelf")
-  const saveABook =  trpc.example.addBook.useQuery({input: 'test'})
+  // const getAll = trpc.example.getUsers.useQuery();
 
 
 
-  const addToShelf = (book: book) => {
+
+  const addToShelf = async (book: book) => {
     console.log(book)
     setShelf("Added to Shelf");
-    saveABook;
-  //  fetchBookDetails(book);
+    const a = await fetch("./api/addBooky", {
+      method: "Post",
+      body: JSON.stringify(
+        {
+          author: String(book.author_name),
+          title: book.title,
+          pages: String(book.number_of_pages_median),
+          userId: "clbv2cfr700009fvsvz5s2v7s"
+        }
+      )
+    })
+    console.log(a)
   }
-
-  const saveBook = async (book: book) => {
-    console.log(book)
-  }
-
-
-
-
 
     return (
 
