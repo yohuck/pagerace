@@ -1,4 +1,5 @@
 import { useSession } from "next-auth/react";
+import React from "react";
 
 export type dbBook = {
     title: string,
@@ -9,8 +10,8 @@ export type dbBook = {
 
 
 const Book = ({ book }: {book: dbBook}) => {
-    const onClick = (e) => {
-        console.log(e)
+    const onClick = (e: React.UIEvent<'button', UIEvent>) => {
+        console.log(e.target)
     }
   // const getAll = trpc.example.getUsers.useQuery();
   const { data: sessionData} = useSession()
