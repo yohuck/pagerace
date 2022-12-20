@@ -10,7 +10,7 @@ export type dbBook = {
 
 
 const Book = ({ book }: {book: dbBook}) => {
-    const onClick = (e: React.UIEvent<'button', UIEvent>) => {
+    const onClick = (e: React.UIEvent) => {
         console.log(e.target)
     }
   // const getAll = trpc.example.getUsers.useQuery();
