@@ -46,5 +46,17 @@ export const exampleRouter = router({
           id: input
         }
       })
-    }) 
+    }),
+    readBook: publicProcedure
+    .input(z.string())
+    .mutation(({ctx, input}) => {
+      return ctx.prisma.book.update({
+        where: {
+          id: input
+        },
+        data: {
+          read: true
+        }
+      })
+    })
 });

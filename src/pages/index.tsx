@@ -48,12 +48,12 @@ const Home: NextPage = () => {
 
             <Link
               className="bg-white flex max-w-xs flex-col boxshadow gap-4 rounded-xl p-4  hover:bg-white/20 border-2 border-black"
-              href="/booksearch"
+              href="/shelf"
         
             >
-              <h3 className="text-2xl font-bold">Register →</h3>
+              <h3 className="text-2xl font-bold">Your Shelf →</h3>
               <div className="text-lg">
-               Create a profile to start tracking your reading progress.
+               View your shelf & track your reading Progress
               </div>
             </Link>
           </div>

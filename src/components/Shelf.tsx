@@ -10,16 +10,21 @@ export default function Shelf() {
     const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
 
     const [pagesRead, setPagesRead] = useState(0)
+    const [visible, setVisible] = useState(0)
+ 
     
   useEffect(() => {
+    console.log('here')
+    console.log(visible)
     let all = 0
     yourShelf?.forEach(book => {
-     
-      all += Number(book.pages)
+     book.read ? all += Number(book.pages) : ''
               })
+    all = all - visible
     setPagesRead(all)
+
     
-  }, [yourShelf])
+  }, [yourShelf, visible])
 
 
     return (
@@ -29,9 +34,9 @@ export default function Shelf() {
         <div className="flex flex-col justify-center items-center">
     
             <h1 className="font-extrabold text-5xl m-5">Your Shelf</h1>
-            <div className='text-white flex justify-center mx-auto flex-wrap gap-4 max-w-[1200px] min-h-full'>
+            <div className='text-white flex justify-center mx-auto flex-wrap gap-4 max-w-[1200px] min-h-full' >
               {yourShelf?.map(book => (
-                <Book key={book.id} book={book} />
+                <Book key={book.id} book={book} setCount={setPagesRead} count={pagesRead} />
               ))}
             </div>
             {
