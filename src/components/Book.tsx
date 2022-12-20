@@ -1,17 +1,29 @@
 import { useSession } from "next-auth/react";
 import React from "react";
+import { trpc } from "../utils/trpc";
+import { useRouter   } from "next/router"
 
 export type dbBook = {
     title: string,
     author: string,
     read: boolean,
-    pages: string
+    pages: string,
+    id: string,
 }
 
 
+
 const Book = ({ book }: {book: dbBook}) => {
-    const onClick = (e: React.UIEvent) => {
+  const router = useRouter()
+  const deleteBook = trpc.example.deleteBook.useMutation()
+
+    const onClick = async (e: React.MouseEvent) => {
         console.log(e.target)
+        const id = book.id;
+        console.log(id)
+
+        deleteBook.mutate(id)
+        router.reload()
     }
   // const getAll = trpc.example.getUsers.useQuery();
   const { data: sessionData} = useSession()

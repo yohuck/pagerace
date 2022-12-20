@@ -37,5 +37,14 @@ export const exampleRouter = router({
         userId: 'clblolfrd00009f00va83vney',
         pages: "223",
       },
-    }); }),   
+    }); }), 
+    deleteBook: publicProcedure
+    .input(z.string()) 
+    .mutation(({ctx, input}) => {
+      return ctx.prisma.book.delete({
+        where: {
+          id: input
+        }
+      })
+    }) 
 });
