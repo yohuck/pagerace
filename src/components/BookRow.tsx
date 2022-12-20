@@ -1,17 +1,20 @@
 import type { book } from "./BookSearch";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+
 
 
 
 const BookRow = ({ book, index }: {book: book, index: number}) => {
   const [ shelf, setShelf ] = useState<string>("Add to Shelf")
   // const getAll = trpc.example.getUsers.useQuery();
+  const { data: sessionData} = useSession()
 
 
 
-
-  const addToShelf = async (book: book) => {
+  const addToShelf = async (book: book, userId: string ) => {
     console.log(book)
+    console.log(userId)
     setShelf("Added to Shelf");
     const a = await fetch("./api/addBooky", {
       method: "Post",
@@ -20,7 +23,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
           author: String(book.author_name),
           title: book.title,
           pages: String(book.number_of_pages_median),
-          userId: "clbv2cfr700009fvsvz5s2v7s"
+          userId: userId
         }
       )
     })
@@ -55,7 +58,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
         <div className="flex justify-between">
           <p className=" font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 text-white border-black bg-[#140c0d]">{book.number_of_pages_median} pages</p>
           <button onClick={
-            () => shelf === 'Add to Shelf' ? addToShelf(book) : setShelf("Add to Shelf")
+            () => shelf === 'Add to Shelf' ? addToShelf(book, sessionData?.user?.id) : setShelf("Add to Shelf")
             } className=" text-white hover:ring-[#f7e329] hover:ring font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 border-black bg-[#140d0e]">{shelf}</button>
         </div> 
       </li>
