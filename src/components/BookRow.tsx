@@ -12,7 +12,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
 
 
 
-  const addToShelf = async (book: book, userId: string ) => {
+  const addToShelf = async (book: book, userId = 'clbv2cfr700009fvsvz5s2v7s' ) => {
     console.log(book)
     console.log(userId)
     setShelf("Added to Shelf");
@@ -29,6 +29,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
     })
     console.log(a)
   }
+
 
     return (
 

@@ -1,3 +1,4 @@
+import { contextProps } from "@trpc/react-query/dist/internals/context";
 import { z } from "zod";
 
 import { router, publicProcedure } from "../trpc";
@@ -9,6 +10,15 @@ export const exampleRouter = router({
       return {
         greeting: `Hello ${input?.text ?? "world"}`,
       };
+    }),
+  getUserBooks: publicProcedure
+    .input(z.string())
+    .query(({ ctx, input }) => {
+      return ctx.prisma.book.findMany({
+        where: {
+          userId: input
+        }
+    });
     }),
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.example.findMany();
@@ -27,6 +37,5 @@ export const exampleRouter = router({
         userId: 'clblolfrd00009f00va83vney',
         pages: "223",
       },
-    }); }),  
-     
+    }); }),   
 });
