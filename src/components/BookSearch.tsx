@@ -73,26 +73,25 @@ const BookSearch = () => {
     <>
     <Navbar />
     <div className="flex flex-col items-center bg-neutral-200 min-h-screen">
-      <h1 className="text-center text-5xl md:text-8xl font-black tracking-tight">
-        BookRace
-      </h1>
- 
-
-      <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight">Find a book </h2>
-
-      <div className="my-4 flex flex-wrap justify-center gap-4 text-2xl font-bold items-center">
-        <input
-          type="text"
-          placeholder="Title"
-          className="boxshadow border-2 border-black p-4 rounded-md font-bold text-xl"
-          onBlur={(e) => setTitle(e.target.value)}
-        /> or 
-        <input
-          type="text"
-          placeholder="Author"
-          className="boxshadow border-2 border-black p-4 rounded-md font-bold text-xl"
-          onBlur={(e) => setAuthor(e.target.value)}
-        />
+      <div className="sticky top-0 bg-neutral-200 w-full max-w-[1200px] z-30 border-b-2 border-black mb-2">
+        <h1 className="text-center text-5xl mt-2 md:text-8xl font-black tracking-tight">
+          BookRace
+        </h1>
+        <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight">Find a book </h2>
+        <div className="my-4 flex md:gap-4  md:flex-row flex-col flex-wrap justify-center gap-1 text-2xl font-bold items-center">
+          <input
+            type="text"
+            placeholder="Title"
+            className="boxshadow border-2 border-black p-4 rounded-md font-bold text-xl"
+            onBlur={(e) => setTitle(e.target.value)}
+          /> or 
+           <input
+            type="text"
+            placeholder="Author"
+            className="boxshadow border-2 border-black p-4 rounded-md font-bold text-xl"
+            onBlur={(e) => setAuthor(e.target.value)}
+          />
+        </div>
       </div>
   
           {isLoading && <p className="text-5xl text-center my-5 py-10  text-black flex-col border-black w-[30%] boxshadow bg-white justify-between rounded-md font-extrabold boxshadow"><p className="my-10">Loading results</p><FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}

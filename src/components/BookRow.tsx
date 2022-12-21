@@ -35,7 +35,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
 
         <li
         data-isbn={book.isbn[0]}
-        className={`  flex text-black flex-col border-black w-[30%] boxshadow bg-white justify-between rounded-md hover:ring-4  ring-[#f7e329] p-6 min-w-[350px] ${
+        className={`  flex text-black flex-col border-black w-[30%] boxshadow bg-white justify-between rounded-md   ring-[#f7e329] p-6 min-w-[350px] ${
           index % 2 ? "border-4 " : "border-4"
         }`}
         key={book.key}

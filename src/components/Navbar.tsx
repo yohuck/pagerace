@@ -9,18 +9,23 @@ const Navbar = () => {
     const { data: sessionData } = useSession();
 
     return (
-        <nav className="flex w-full md:w-fit md:gap-3 md:border-none md:justify-start border-t-2 md:bg-inherit bg-slate-100 border-black md:flex-col justify-center items-center gap-1 py-5 fixed md:top-0 bottom-0">
-        <Link className="" href={'/'}>
-        <FontAwesomeIcon icon={faHouse} size="xl" className="mx-3 boxshadow aspect-square p-3 border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" />
+        <nav className="flex md:mx-3 z-50 w-full md:w-fit md:gap-3 md:border-none md:justify-start border-t-2 md:bg-inherit bg-slate-100 border-black md:flex-col justify-center items-center gap-1 py-5 fixed md:top-0 bottom-0 ">
+        <Link className="mx-3 flex flex-col justify-center items-center text-center boxshadow aspect-square border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1] w-full" href={'/'}>
+        <FontAwesomeIcon icon={faHouse} size="xl" className="" />
+        <p className="font-semibold">Home</p>
         </Link>
-        <Link className="" href={'/booksearch'}>
-        <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" className=" mx-3 aspect-square boxshadow p-3 border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" />
+        <Link className="mx-3 flex flex-col justify-center items-center text-center boxshadow aspect-square border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1] w-full" href={'/booksearch'}>
+        <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" className="" />
+        <p className="font-semibold">Search</p>
         </Link>
-        <Link className="" href={'/shelf'}>
-        <FontAwesomeIcon icon={faBookBookmark} size="xl" className=" mx-3 boxshadow aspect-square p-3 border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" />
+        <Link className="mx-3 flex flex-col justify-center items-center text-center boxshadow aspect-square border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1] w-full" href={'/shelf'}>
+        <FontAwesomeIcon icon={faBookBookmark} size="xl" className="" />
+        <p className="font-semibold">Shelf</p>
         </Link>
-        <button className="" onClick={sessionData ? () => signOut() : () => signIn()}>
-        <FontAwesomeIcon icon={faUserAlt} size="xl" className=" mx-3 boxshadow p-3 aspect-square border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]" />
+      
+        <button className="mx-3 flex flex-col justify-center items-center text-center boxshadow aspect-square border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1] w-full" onClick={sessionData ? () => signOut() : () => signIn()}>
+        <FontAwesomeIcon icon={faUserAlt} size="xl" className="" />
+        <p className="font-semibold">Profile</p>
         </button>
         <div className="flex gap-2">
    
