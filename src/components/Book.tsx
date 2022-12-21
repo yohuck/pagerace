@@ -2,6 +2,8 @@ import { useSession } from "next-auth/react";
 import React, {useState} from "react";
 import { trpc } from "../utils/trpc";
 import { useRouter   } from "next/router"
+import { faRemove, faCheck, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export type dbBook = {
     title: string,
@@ -76,10 +78,10 @@ const Book = ({ book, setCount, count}: {book: dbBook, count: number, setCount: 
          {book.author}
           </p>
         </div>
-        <div className="flex justify-between">
-          <p className=" font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 text-white border-black bg-[#140c0d]">{book.pages} pages</p>
-         <button onClick={removeFromShelf}>Remove Book</button>
-         <button onClick={ readBookShelf }>{read ? "Completed" : "Complete"}</button>
+        <div className="flex justify-start gap-2">
+          <p className=" font-bold p-4 border-2 rounded-lg w-fit text-center hover:opacity-75 text-white border-black bg-[#140c0d]">{book.pages} pages</p>
+         <button onClick={removeFromShelf}> <FontAwesomeIcon icon={faRemove} size="xl" className="aspect-square p-3 border-4 rounded-lg hover:opacity-75  border-[#e02339]" /></button>
+         <button onClick={ readBookShelf }>{read ? <FontAwesomeIcon icon={faCheck} size="xl" className="aspect-square p-3 border-4 rounded-lg hover:opacity-75 border-black bg-[#23e046]" /> : <FontAwesomeIcon icon={faCircleCheck} color="#23e046" size="xl" className="aspect-square p-3 rounded-lg hover:opacity-75 border-4 border-[#23e046]" />}</button>
         </div> 
       </li> || <div></div>
       )
