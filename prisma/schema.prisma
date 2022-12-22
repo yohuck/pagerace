@@ -89,7 +89,7 @@ model Server {
   adminUser   User               @relation(fields: [adminUserId], references: [id])
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
-  private      Boolean           @default(false)
+  private      Boolean           
   passcode    String?
   startDate   DateTime?
   endDate     DateTime?

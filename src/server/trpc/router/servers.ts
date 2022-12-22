@@ -8,7 +8,7 @@ export const serverRouter = router({
       name: z.string(),
       description: z.string().nullish(),
       adminUserId: z.string(),
-      private: z.boolean().optional(),
+      private: z.boolean(),
       startDate: z.date().nullish(),
       endDate: z.date().nullish(),
     }))
