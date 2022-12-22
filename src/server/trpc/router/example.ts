@@ -1,4 +1,5 @@
 import { contextProps } from "@trpc/react-query/dist/internals/context";
+import { now } from "next-auth/client/_utils";
 import { z } from "zod";
 
 import { router, publicProcedure } from "../trpc";
@@ -47,7 +48,7 @@ export const exampleRouter = router({
         }
       })
     }),
-    readBook: publicProcedure
+    finishBook: publicProcedure
     .input(z.string())
     .mutation(({ctx, input}) => {
       return ctx.prisma.book.update({
@@ -55,7 +56,20 @@ export const exampleRouter = router({
           id: input
         },
         data: {
-          read: true
+          read: true,
+          finishedAt: new Date(Date.now())
+        }
+      })
+    }),
+    startBook: publicProcedure
+    .input(z.string())
+    .mutation(({ctx, input}) => {
+      return ctx.prisma.book.update({
+        where: {
+          id: input
+        }, 
+        data: {
+          startedAt: new Date(Date.now())
         }
       })
     })
