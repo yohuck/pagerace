@@ -55,7 +55,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   books         Book[]
-  Server        Server[]
+  servers       Server[]
   relation      MembersInServers[]
 }
 
@@ -90,6 +90,7 @@ model Server {
   createdAt   DateTime           @default(now())
   updatedAt   DateTime           @updatedAt
   private      Boolean           @default(false)
+  passcode    String?
   startDate   DateTime?
   endDate     DateTime?
   relations   MembersInServers[]
