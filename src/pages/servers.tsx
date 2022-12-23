@@ -1,6 +1,7 @@
  import React, { useState } from 'react';
 import { trpc } from '../utils/trpc';
 import { useSession } from 'next-auth/react';
+import Navbar from '../components/Navbar';
 
 export default function ServerPage() {
   const [serverName, setServerName] = useState('');
@@ -22,7 +23,10 @@ export default function ServerPage() {
   }
 
   return (
-    <div className="flex items-center">
+    <>
+    <Navbar />
+    <div className="flex flex-col items-center">
+ 
 
       <form
       className='max-w-[900px] p-4 m-5 md:border rounded-md  border-black  flex flex-col items-center'
@@ -108,5 +112,6 @@ export default function ServerPage() {
         </table>
       </div>
     </div>
+    </>
   );
 }
