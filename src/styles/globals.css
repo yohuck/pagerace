@@ -3,14 +3,16 @@
 @tailwind utilities;
 
 .boxshadow{
-    box-shadow: 5px 5px black;
+    box-shadow: 5px -5px black;
     }
 
 
 .dfn {
   position: relative;
+  z-index: 2;
 }
 .dfn:hover:after, .dfn:focus:after {
+  z-index: 2;
   content:  attr(data-title);
   background: #fff;
   color: black;

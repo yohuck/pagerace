@@ -1,7 +1,7 @@
  import React, { useState } from 'react';
 import { trpc } from '../utils/trpc';
 import { useSession } from 'next-auth/react';
-import Navbar from '../components/Navbar';
+import Navbar from '../components/NewNav';
 
 export default function ServerPage() {
   const [serverName, setServerName] = useState('');
@@ -29,7 +29,7 @@ export default function ServerPage() {
  
 
       <form
-      className='max-w-[900px] p-4 m-5 md:border rounded-md  border-black  flex flex-col items-center'
+      className='max-w-[900px] mt-20 p-4 m-5 md:border rounded-md  border-black  flex flex-col items-center'
        onSubmit={handleSubmit}>
           <h2 className='text-3xl mb-6'>Create A Race</h2>
         <label className='text-center flex flex-col text-2xl  font-black tracking-tight'>

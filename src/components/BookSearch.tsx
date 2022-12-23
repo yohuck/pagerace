@@ -4,7 +4,7 @@ import  BookRow  from "./BookRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faBookmark, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { signIn, signOut, useSession } from "next-auth/react";
-import Navbar from "./Navbar";
+import Nav from "./NewNav";
 
 interface returnedBooks {
   numFound: number;
@@ -71,13 +71,10 @@ const BookSearch = () => {
     
     sessionData &&
     <>
-    <Navbar />
-    <div className="flex flex-col items-center bg-neutral-200 min-h-screen">
-      <div className="sticky top-0 bg-neutral-200 w-full max-w-[1200px] z-30 border-b-2 border-black mb-2">
-        <h1 className="text-center text-5xl mt-2 md:text-8xl font-black tracking-tight">
-          BookRace
-        </h1>
-        <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight">Find a book </h2>
+    <Nav />
+    <div className="flex flex-col items-center mt-16 min-h-screen z-10">
+      <div className="w-full max-w-[1200px] border-b-2 fixed bg-white border-black mb-2">
+        <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight mt-2">Find a book </h2>
         <div className="my-4 flex md:gap-4  md:flex-row flex-col flex-wrap justify-center gap-1 text-2xl font-bold items-center">
           <input
             type="text"
@@ -94,8 +91,8 @@ const BookSearch = () => {
         </div>
       </div>
   
-          {isLoading && <p className="text-5xl text-center my-5 py-10  text-black flex-col border-black w-[30%] boxshadow bg-white justify-between rounded-md font-extrabold boxshadow"><p className="my-10">Loading results</p><FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}
-          <ul className=" text-white flex justify-center mx-auto flex-wrap gap-4 max-w-[1200px]">
+          {isLoading && <p className="text-2xl text-center my-5 py-10 w-full  text-black flex-col border-black mt-60 boxshadow bg-white justify-between rounded-md font-extrabold boxshadow"><p className="my-10">Loading results</p><FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}
+          <ul className=" text-white flex justify-center mt-64 mx-auto flex-wrap gap-4 max-w-[1200px]">
             {books.numFound > 0 ? (
               books.docs?.filter(book => book.number_of_pages_median > 50 && book.isbn?.length > 0).map((book, index) => (
                 <BookRow key={index} book={book} index={index} />
@@ -114,7 +111,7 @@ const BookSearch = () => {
            
       </div></>
   )  ||   <>
-  <Navbar />
+  <Nav />
     <div className="flex flex-col items-center">
     <h1 className="text-center text-5xl md:text-8xl font-black tracking-tight">Please sign in</h1>
      <button

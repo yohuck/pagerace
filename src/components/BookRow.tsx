@@ -42,7 +42,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
       >
  
         <div className="info">
-          <p tabIndex={book.title.length > 45 ? 0 : 1} className={`font-bold text-2xl ${book.title.length > 45 && 'dfn'}`} data-title={book.title}>{book.title.length > 45 ? book.title.slice(0,45) + '...' : book.title }</p>
+          <p tabIndex={book.title.length > 45 ? 0 : 1} className={`font-bold text-2xl ${book.title.length > 45 && 'z-0'}`} data-title={book.title}>{book.title.length > 45 ? book.title.slice(0,45) + '...' : book.title }</p>
           <p className="mb-5">{book.first_publish_year}</p>
           {book.subtitle && <p className="font-bold mb-5">{book.subtitle}</p>}
           

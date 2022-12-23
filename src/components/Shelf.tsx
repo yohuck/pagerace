@@ -1,7 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
 import  Book  from "./Book"
-import Navbar from "./Navbar";
+import Navbar from "./NewNav";
 import { useState, useEffect } from "react";
 
 export default function Shelf() {
