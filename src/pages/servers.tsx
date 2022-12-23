@@ -1,26 +1,31 @@
  import React, { useState } from 'react';
 import { trpc } from '../utils/trpc';
+import { useSession } from 'next-auth/react';
 
 export default function ServerPage() {
   const [serverName, setServerName] = useState('');
   const [serverDescription, setServerDescription] = useState('');
   const [serverPrivate, setServerPrivate] = useState('false');
-  const { data: publicServers } = trpc.servers.getAllServers.useQuery()
-  const addRouter = trpc.servers.createServer.useMutation()
+  const [serverPassword, setServerPassword] = useState('');
+  const { data: publicServers } = trpc.servers.getAllServers.useQuery();
+  const { data: sessionData} = useSession();
+  const addRouter = trpc.servers.createServer.useMutation();
 
  
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log({ serverName, serverDescription, serverPrivate });
-    addRouter.mutate({name: serverName, description: serverDescription, private: eval(serverPrivate), adminUserId: "clbv2cfr700009fvsvz5s2v7s" })
+    console.log({ serverName, serverDescription, serverPrivate, serverPassword });
+    if (sessionData?.user?.id){
+      addRouter.mutate({name: serverName, description: serverDescription, passcode: serverPassword, private: eval(serverPrivate), adminUserId: sessionData.user.id })
+    }
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex items-center">
 
       <form
-      className='max-w-[400px] p-4 m-4 rounded-md boxshadow border-4 border-black  mx-auto flex flex-col items-center'
+      className='max-w-[900px] p-4 m-5 md:border rounded-md  border-black  flex flex-col items-center'
        onSubmit={handleSubmit}>
           <h2 className='text-3xl mb-6'>Create A Race</h2>
         <label className='text-center flex flex-col text-2xl  font-black tracking-tight'>
@@ -66,21 +71,42 @@ export default function ServerPage() {
               />
               Private
           </div>
+
         </label>
+        <br />
+       { eval(serverPrivate) && <label className='text-center flex flex-col text-2xl  font-black tracking-tight'>
+          Server Name:
+          <input
+            type="text"
+            className='mx-4 boxshadow border-2 border-black p-4 rounded-md font-bold text-xl'
+            value={serverPassword}
+            onChange={event => setServerPassword(event.target.value)}
+          />
+        </label>}
         <br />
         <button
           className='boxshadow text-center  w-fit px-4   font-bold p-2 border-2 text-xl  rounded-lg hover:opacity-75 border-black bg-[#f8f0f1]'
          type="submit">Submit</button>
       </form>
 
-      <h2>All servers</h2>
-      {publicServers?.map((server) => (
-        <div key={server.id} >
-        <p>{server.name}</p>
-        <p>{server.description}</p>
-        <p>{server.private ? 'private' : 'public'}</p>
-        </div>
-      ))}
+      <div className="flex flex-col w-11/12 max-w-[1000px] text-left">
+        <h2 className='text-center flex flex-col text-2xl  font-black tracking-tight'>All servers</h2>
+
+<table className='flex flex-col border-4 border-black boxshadow rounded-md '>
+
+        { 
+
+        publicServers?.map((server, index) => (
+          <tr key={index} className={`grid grid-cols-4 border-2 border-neutral-400 p-4 ${index % 2 === 0 && 'bg-neutral-100'}`} >
+          <td>{server.name}</td>
+          <td>{server.description}</td>
+          <td>{server.private ? 'private' : 'public'}</td>
+          <td>{server.passcode}</td>
+          </tr>
+        ))}
+
+        </table>
+      </div>
     </div>
   );
 }

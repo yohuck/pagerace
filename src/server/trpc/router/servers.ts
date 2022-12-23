@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { router, publicProcedure } from "../trpc";
+import { router, publicProcedure, protectedProcedure } from "../trpc";
 
 export const serverRouter = router({
-    createServer: publicProcedure
+    createServer: protectedProcedure
     .input(z.object({ 
       name: z.string(),
       description: z.string().nullish(),
@@ -11,6 +11,7 @@ export const serverRouter = router({
       private: z.boolean(),
       startDate: z.date().nullish(),
       endDate: z.date().nullish(),
+      passcode: z.string().nullable()
     }))
     .mutation(({ctx, input}) => {
         return ctx.prisma.server.create({
@@ -21,6 +22,7 @@ export const serverRouter = router({
             private: input.private,
             startDate: input.startDate,
             endDate: input.endDate,
+            passcode: input.passcode,
           }
         });
     }),

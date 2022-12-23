@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { faBook, faBookBookmark, faMagnifyingGlass, faHouse, faUserAlt } from "@fortawesome/free-solid-svg-icons";
+import { faFlagCheckered, faBookBookmark, faMagnifyingGlass, faHouse, faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
@@ -22,11 +22,13 @@ const Navbar = () => {
         <FontAwesomeIcon icon={faBookBookmark} size="xl" className="" />
         <p className="font-semibold">Shelf</p>
         </Link>
+        <Link className="mx-3 flex flex-col justify-center items-center text-center boxshadow aspect-square border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1] w-full" href={'/servers'}>
+        <FontAwesomeIcon icon={faFlagCheckered} size="xl" className="" />
+        <p className="font-semibold">Race</p>
+        </Link>
+        
       
-        <button className="mx-3 flex flex-col justify-center items-center text-center boxshadow aspect-square border-2 rounded-lg hover:opacity-75 border-black bg-[#f8f0f1] w-full" onClick={sessionData ? () => signOut() : () => signIn()}>
-        <FontAwesomeIcon icon={faUserAlt} size="xl" className="" />
-        <p className="font-semibold">Profile</p>
-        </button>
+
         <div className="flex gap-2">
    
             {/* <button
