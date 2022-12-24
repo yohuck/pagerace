@@ -35,8 +35,8 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
     const router = useRouter()
     console.log(router.pathname)
   const [isOpen, setIsOpen] = useState(false);
-//   const [pagesRead, setPagesRead] = useState(0)
 
+    
 
   return (
     <div className="flex w-full justify-between items-center fixed border-b-2 z-50 bg-neutral-300 border-black">
@@ -46,7 +46,7 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
                                 </h1>
                                 <div className="bg-white p-2 m-2 h-fit rounded-md flex items-center justify-between gap-2  border-4 border-black">
                                     <FontAwesomeIcon icon={faBook} size="xl" className=" my-1" />
-                                       <CountUp  end={pagesRead} duration={0.4} className="font-extrabold" />
+                                       <CountUp  start={pagesRead2} end={pagesRead} duration={1} className="font-extrabold" />
                                 </div>
                         
                   </div>
