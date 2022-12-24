@@ -24,7 +24,7 @@ export default function ServerPage() {
 
   return (
     <>
-    <Navbar  />
+    <Navbar pagesRead={0}  />
     <div className="flex flex-col items-center">
  
 

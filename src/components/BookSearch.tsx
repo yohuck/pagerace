@@ -132,7 +132,7 @@ const BookSearch = () => {
            
       </div></>
   )  ||   <>
-  <Nav />
+  <Nav pagesRead={0} />
     <div className="flex flex-col items-center">
     <h1 className="text-center text-5xl md:text-8xl font-black tracking-tight">Please sign in</h1>
      <button
