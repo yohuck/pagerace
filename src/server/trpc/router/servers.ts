@@ -66,6 +66,15 @@ export const serverRouter = router({
 
         })
     }),
+    getSingleServer: publicProcedure
+    .input(z.string())
+    .query(({ctx, input}) => {
+      return ctx.prisma.server.findFirst({
+        where: {
+          id: input
+        },
+      })
+    }),
     checkServerPassword: publicProcedure
     .input(z.string())
     .query(({ctx, input}) => {
