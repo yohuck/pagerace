@@ -2,6 +2,10 @@
 import { trpc } from '../utils/trpc';
 import { useSession } from 'next-auth/react';
 import Navbar from '../components/NewNav';
+import { faPlus} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+
 
 export default function ServerPage() {
   const [serverName, setServerName] = useState('');
@@ -125,27 +129,29 @@ export default function ServerPage() {
       <div className="text-left w-screen flex flex-col p-2 items-center justify-center">
         <div className="flex flex-col  gap-4 justify-center items-center">
           <h2 className='text-center text-2xl font-extrabold tracking-tight mt-8'>All servers</h2>
-          <button className='font-bold w-fit mx-auto mb-3 p-2 boxshadow rounded-md border-4 border-black' onClick={() => setFormOpen(!formOpen)}>Add a server</button>
+         
         </div>
 
 <table className='flex flex-col max-w-[1200px] mx-auto '>
   <thead>
-    <tr className='grid grid-cols-4 p-1 rounded-t-lg bg-black text-white'>
-      <th>Server Name</th>
-      <th>Description</th>
+    <tr className='grid grid-cols-4 gap-8 items-center p-1 rounded-t-lg bg-black text-white'>
+      <th>Name</th>
       <th>Privacy</th>
-      <th>Passcode</th>
+      <th></th>
+      <th  > <button  className='px-3 text-xs font-bold flex  rounded-md border-2 border-white' onClick={() => setFormOpen(!formOpen)}>Add Server  </button></th>
+
     </tr>
   </thead>
     <tbody>
         { 
 
         publicServers?.map((server, index) => (
-          <tr key={index} className={`grid grid-cols-4 p-1 ${index % 2 === 0 && 'bg-neutral-300'} last:rounded-b-lg`} >
+          <tr key={index} className={`grid grid-cols-4 items-center gap-8 p-2  ${index % 2 === 0 && 'bg-neutral-300'} last:rounded-b-lg`} >
           <td>{server.name}</td>
-          <td>{server.description}</td>
+         
           <td>{server.private ? 'prv' : 'pub'}</td>
-          <td>{server.passcode}</td>
+          <td><button className={'font-bold p-2 border-2 px-4 bg-white border-black rounded-md'}>Join</button></td>
+          <td><button className={'font-bold p-2 border-2 px-4 bg-neutral-900 text-white border-black rounded-md'}>View</button></td>
           </tr>
         ))}
 </tbody>
