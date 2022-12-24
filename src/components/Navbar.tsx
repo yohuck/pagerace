@@ -4,11 +4,18 @@ import { faFlagCheckered, faBookBookmark, faMagnifyingGlass, faHouse, faUserAlt 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 
+import { trpc } from "../utils/trpc";
+
 
 
 const Navbar = () => {
+
+
+
     const { data: sessionData } = useSession();
     const [open, setOpen] = useState(false);
+
+    const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
 
     return (
         <nav className={`grid grid-cols-4 gap-5 z-1000 p-4 grid-flow-col justify-center items-center md:mx-3 z-50 w-full md:w-fit md:gap-3 md:border-none md:justify-start border-t-2 md:bg-inherit bg-slate-100 border-black md:flex-col fixed md:top-0 transition-all  ${open ? 'bottom-[0rem]' : 'bottom-[-20rem]'} `}>

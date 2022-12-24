@@ -72,7 +72,7 @@ const BookSearch = () => {
     sessionData &&
     <>
     <Nav />
-    <div className="flex flex-col items-center mt-16 min-h-screen z-10">
+    <div className="flex flex-col items-center mt-20 min-h-screen z-10">
       <div className="w-full max-w-[1200px] border-b-2 fixed bg-white border-black mb-2">
         <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight mt-2">Find a book </h2>
         <div className="my-4 flex md:gap-4  md:flex-row flex-col flex-wrap justify-center gap-1 text-2xl font-bold items-center">
