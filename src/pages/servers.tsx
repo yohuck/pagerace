@@ -36,7 +36,7 @@ export default function ServerPage() {
     if (sessionData?.user?.id){
       addRouter.mutate({name: serverName, description: serverDescription, passcode: serverPassword, private: eval(serverPrivate), adminUserId: sessionData.user.id })
       setFormOpen(!formOpen)
-      window.location.reload(true)
+      window.location.reload()
     }
   }
 
