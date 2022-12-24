@@ -24,7 +24,7 @@ export default function ServerPage() {
 
   return (
     <>
-    <Navbar />
+    <Navbar  />
     <div className="flex flex-col items-center">
  
 

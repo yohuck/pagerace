@@ -29,7 +29,7 @@ export default function Shelf() {
 
     return (
       <>
-      <Navbar setPagesRead={setPagesRead} pagesRead={pagesRead} />
+      <Navbar pagesRead={pagesRead} />
       
         <div className="flex flex-col justify-center items-center  bg-gradient-to-b from-neutral-200 to-slate-200 min-h-screen">
     

@@ -1,4 +1,5 @@
 import { type NextPage } from "next";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -8,8 +9,26 @@ import NewNav from "../components/NewNav"
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {
+  const { data: sessionData } = useSession();
 
-  const getAll = trpc.example.getUsers.useQuery();
+  const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
+
+
+
+  const [pagesRead, setPagesRead] = useState(0)
+
+  useEffect(() => {
+ 
+  
+    let all = 0
+    yourShelf?.forEach(book => {
+     book.read ? all += Number(book.pages) : ''
+              })
+ 
+    setPagesRead(all)
+
+    
+  }, [yourShelf])
 
 
   return (
@@ -20,7 +39,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <Navbar /> */}
-      <NewNav />
+      <NewNav pagesRead={pagesRead}/>
       <main className="flex flex-col h-11/12 items-center  bg-gradient-to-b from-neutral-200 to-slate-200 min-h-screen">
         <div className="container flex flex-col items-center justify-center px-4 py-4 mt-20">
           <h1 className="text-5xl font-extrabold tracking-tight text-black sm:text-[5rem] ">

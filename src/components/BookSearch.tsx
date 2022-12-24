@@ -6,6 +6,8 @@ import { faBook, faBookmark, faSpinner } from "@fortawesome/free-solid-svg-icons
 import { signIn, signOut, useSession } from "next-auth/react";
 import Nav from "./NewNav";
 
+import { trpc } from "../utils/trpc";
+
 interface returnedBooks {
   numFound: number;
   docs?: book[];
@@ -28,6 +30,25 @@ const BookSearch = () => {
   const [books, setBooks] = useState<returnedBooks>({ numFound: 0 });
   const [ isLoading, setIsLoading] = useState(false)
   const { data: sessionData } = useSession();
+
+  const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
+
+    const [pagesRead, setPagesRead] = useState(0)
+    const [visible, setVisible] = useState(0)
+ 
+    
+  useEffect(() => {
+    console.log('here')
+    console.log(visible)
+    let all = 0
+    yourShelf?.forEach(book => {
+     book.read ? all += Number(book.pages) : ''
+              })
+    all = all - visible
+    setPagesRead(all)
+
+    
+  }, [yourShelf, visible])
 
   useEffect(() => {
     if (title.split("").length > 2) {
@@ -71,7 +92,7 @@ const BookSearch = () => {
     
     sessionData &&
     <>
-    <Nav />
+    <Nav pagesRead={pagesRead}/>
     <div className="flex flex-col items-center mt-20 min-h-screen z-10">
       <div className="w-full max-w-[1200px] border-b-2 fixed bg-white border-black mb-2">
         <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight mt-2">Find a book </h2>

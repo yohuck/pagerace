@@ -8,7 +8,8 @@ import CountUp from 'react-countup';
 import { trpc } from '../utils/trpc';
 import { useSession } from 'next-auth/react';
 
-const BurgerMenu = ({setPagesRead, pagesRead}) => {
+const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
+ 
 
     const { data: sessionData } = useSession();
     const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
@@ -45,7 +46,7 @@ const BurgerMenu = ({setPagesRead, pagesRead}) => {
                                 </h1>
                                 <div className="bg-white p-2 m-2 h-fit rounded-md flex items-center justify-between gap-2  border-4 border-black">
                                     <FontAwesomeIcon icon={faBook} size="xl" className=" my-1" />
-                                       <CountUp  end={pagesRead  || pagesRead2} duration={0.4} className="font-extrabold" />
+                                       <CountUp  end={pagesRead} duration={0.4} className="font-extrabold" />
                                 </div>
                         
                   </div>
