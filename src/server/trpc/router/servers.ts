@@ -75,6 +75,19 @@ export const serverRouter = router({
         },
       })
     }),
+    getServerUsers: publicProcedure
+    .input(z.string())
+    .query(({ctx, input}) => {
+      return ctx.prisma.user.findMany({
+        where: {
+          relation: {
+            some: {
+              serverId: input
+            }
+          }
+        }
+      })
+    }),
     checkServerPassword: publicProcedure
     .input(z.string())
     .query(({ctx, input}) => {

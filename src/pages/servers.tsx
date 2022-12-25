@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import Navbar from '../components/NewNav';
 import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Link from 'next/link';
 
 
 
@@ -18,6 +19,7 @@ export default function ServerPage() {
   const [formOpen, setFormOpen] = useState(false)
 
   const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
+  const joinServer = trpc.servers.joinServer.useMutation()
   const [pagesRead, setPagesRead] = useState(0)
 
   useEffect(() => {
@@ -150,11 +152,11 @@ export default function ServerPage() {
           <td>{server.name}</td>
          
           <td>{server.private ? 'prv' : 'pub'}</td>
-          <td><button className={'font-bold p-2 border-2 px-4 bg-white border-black rounded-md'}>Join</button></td>
-          <td><button className={'font-bold p-2 border-2 px-4 bg-neutral-900 text-white border-black rounded-md'}>View</button></td>
+          <td><button onClick={() => joinServer.mutate({userId: sessionData?.user?.id as string, serverId: server.id, passcode: ''})} className={'font-bold p-2 border-2 px-4 bg-white border-black rounded-md'}>Join</button></td>
+          <td><Link href={`/race/${server.id}`} className={'font-bold p-2 border-2 px-4 bg-neutral-900 text-white border-black rounded-md'}>View</Link></td>
           </tr>
         ))}
-</tbody>
+    </tbody>
         </table>
       </div>
     </div>

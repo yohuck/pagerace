@@ -1,15 +1,15 @@
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import Navbar from '../../../components/NewNav';
 import { trpc } from '../../../utils/trpc';
-import { parseISO, format } from 'date-fns';
 
 export default function PostPage() {
   const router = useRouter()
   const { id } = router.query
   const { data: serverData } = trpc.servers.getSingleServer.useQuery(id as string)
-
+  const { data: serverUsers } = trpc.servers.getServerUsers.useQuery(id as string)
+  console.log(serverUsers)
   return (
+    
   
     <div className=''>
       <Navbar pagesRead={0} />
@@ -20,6 +20,7 @@ export default function PostPage() {
           <p className='flex justify-between'><span className="font-bold">Started At: </span>{serverData?.createdAt.toLocaleDateString()}</p>
           <p className='flex justify-between'><span className="font-bold">Privacy: </span>{serverData?.private ? "private" : "public"}</p>
       </div>
+      {serverUsers?.map((user) => <p key={user.id}>{user.name}</p>)}
     </div>
   )
 }
