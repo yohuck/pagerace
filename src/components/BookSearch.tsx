@@ -112,7 +112,7 @@ const BookSearch = () => {
         </div>
       </div>
   
-          {isLoading && <p className="text-4xl text-center py-20 px-10 w-fit border-4  text-black flex-col border-black mt-64 bg-white justify-between rounded-md font-extrabold boxshadow"><p className="my-10">Loading results</p><FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}
+          {isLoading && <p className="text-4xl text-center max-w-[400px] py-5 px-10 w-fit border-4  text-black flex-col border-black mt-64 bg-white justify-between rounded-md font-extrabold boxshadow"><p className="my-10">Loading results</p><FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}
           <ul className=" text-white flex justify-center mt-64 pt-3 mx-auto flex-wrap gap-4 max-w-[1200px]">
             {books.numFound > 0 ? (
               books.docs?.filter(book => book.number_of_pages_median > 50 && book.isbn?.length > 0).map((book, index) => (

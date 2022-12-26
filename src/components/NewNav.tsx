@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faArrowUp, faHouse, faBook} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faArrowUp, faHouse, faBookBookmark, faBook, faFlagCheckered, faMagnifyingGlass, faRightFromBracket, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import CountUp from 'react-countup';
 
 import { trpc } from '../utils/trpc';
-import { useSession } from 'next-auth/react';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 
 
@@ -89,18 +89,30 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
           isOpen ? 'block translate-y-[100vh]' : 'block '
         } w-64 bg-slate-200 border-l-4 border-black transition-all top-[-100vh] rounded-md shadow-md h-full z-500 py-2 pt-6 fixed right-0`}
       >
-        <Link href="/" className={`block px-4 py-2 text-gray-800 hover:bg-gray-300 ${router.pathname === '/' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
+        <Link href="/" className={`px-4 py-2 flex gap-4 items-center text-gray-800 hover:bg-gray-300 ${router.pathname === '/' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
+        <FontAwesomeIcon icon={faHouse} size="lg" className=" my-1" />
           Home
+      
         </Link>
-        <Link href="/booksearch" className={`block px-4 py-2 text-gray-800 hover:bg-gray-300 ${router.pathname === '/booksearch' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
+        <Link href="/booksearch" className={`flex gap-4 items-center px-4 py-2 text-gray-800 hover:bg-gray-300 ${router.pathname === '/booksearch' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
+        <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className=" my-1" />
           Book Search
         </Link>
-        <Link href="/shelf" className={`block px-4 py-2 text-gray-800 hover:bg-gray-300 ${router.pathname === '/shelf' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
-          Shelf
+      
+        <Link href="/shelf" className={`flex gap-4 items-center px-4 py-2 text-gray-800 hover:bg-gray-300 ${router.pathname === '/shelf' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
+        <FontAwesomeIcon icon={faBookBookmark} size="lg" className=" my-1" />
+          Your Shelf
         </Link>
-        <Link href="/servers" className={`block px-4 py-2 text-gray-800 hover:bg-gray-300 ${router.pathname === '/servers' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
-          Servers
+        <Link href="/servers" className={`flex gap-4 items-center px-4 py-2 text-gray-800 hover:bg-gray-300 ${router.pathname === '/servers' && 'font-extrabold'}`} onClick={() => setIsOpen(false)}>
+        <FontAwesomeIcon icon={faFlagCheckered} size="lg" className=" my-1" />
+          Races
         </Link>
+        <button
+        className='flex gap-4 items-center px-4 py-2 text-gray-800 hover:bg-gray-300'
+         onClick={sessionData ? () => signOut() : () => signIn()}>
+        <FontAwesomeIcon icon={sessionData?.user ? faRightFromBracket : faRightToBracket} size="lg" className=" my-1" />
+          {sessionData?.user ? 'Log Out' : "Log In"}
+        </button>
 
       </div>
     </div>
