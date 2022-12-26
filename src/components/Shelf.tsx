@@ -31,7 +31,7 @@ export default function Shelf() {
       <>
       <Navbar pagesRead={pagesRead} />
       
-        <div className="flex flex-col justify-center items-center  bg-gradient-to-b from-neutral-200 to-slate-200 min-h-screen">
+        <div className="flex flex-col justify-center items-center pt-20  bg-gradient-to-b from-neutral-200 to-slate-200 min-h-screen">
     
             <h1 className="font-extrabold text-5xl m-5">Your Shelf</h1>
             <div className='text-white flex justify-center mx-auto flex-wrap gap-4 max-w-[1200px] min-h-full' >

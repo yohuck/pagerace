@@ -92,10 +92,10 @@ const BookSearch = () => {
     
     sessionData &&
     <>
-    <Nav pagesRead={pagesRead}/>
-    <div className="flex flex-col items-center mt-20 min-h-screen z-10">
-      <div className="w-full max-w-[1200px] border-b-2 fixed bg-white border-black mb-2">
-        <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight mt-2">Find a book </h2>
+    <Nav pagesRead={pagesRead} />
+    <div className="flex flex-col items-center pt-20 min-h-screen  bg-yellow-50">
+      <div className="w-full max-w-[1200px] border-b-2 fixed z-20  border-black mb-2 bg-yellow-50">
+        <h2 className="text-center text-2xl md:text-4xl font-black tracking-tight mt-5">Find a book </h2>
         <div className="my-4 flex md:gap-4  md:flex-row flex-col flex-wrap justify-center gap-1 text-2xl font-bold items-center">
           <input
             type="text"
@@ -112,8 +112,8 @@ const BookSearch = () => {
         </div>
       </div>
   
-          {isLoading && <p className="text-2xl text-center my-5 py-10 w-full  text-black flex-col border-black mt-60 boxshadow bg-white justify-between rounded-md font-extrabold boxshadow"><p className="my-10">Loading results</p><FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}
-          <ul className=" text-white flex justify-center mt-64 mx-auto flex-wrap gap-4 max-w-[1200px]">
+          {isLoading && <p className="text-4xl text-center py-20 px-10 w-fit border-4  text-black flex-col border-black mt-64 bg-white justify-between rounded-md font-extrabold boxshadow"><p className="my-10">Loading results</p><FontAwesomeIcon icon={faSpinner} spin size="2xl" className="mx-1" /></p>}
+          <ul className=" text-white flex justify-center mt-64 pt-3 mx-auto flex-wrap gap-4 max-w-[1200px]">
             {books.numFound > 0 ? (
               books.docs?.filter(book => book.number_of_pages_median > 50 && book.isbn?.length > 0).map((book, index) => (
                 <BookRow key={index} book={book} index={index} />

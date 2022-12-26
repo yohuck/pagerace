@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faArrowUp, faHouse, faBook} from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
@@ -8,12 +8,36 @@ import CountUp from 'react-countup';
 import { trpc } from '../utils/trpc';
 import { useSession } from 'next-auth/react';
 
+
+
 const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const nav = navRef.current;
+      if (nav) {
+        if (window.scrollY > 0) {
+          nav.classList.add('border-b', 'bg-white');
+    
+        } else {
+          nav.classList.remove('border-b', 'bg-white');
+   
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
  
 
     const { data: sessionData } = useSession();
     const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
     const [pagesRead2, setPagesRead2] = useState(0)
+
+    const navRef = useRef(null);
 
 
 
@@ -39,12 +63,12 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
     
 
   return (
-    <div className="flex w-full justify-between items-center fixed border-b-2 z-50 bg-sky-100 border-black">
+    <div className={`flex w-full justify-between items-center fixed z-50  border-black`} ref={navRef} >
                   <div className="flex gap-2 py-2 justify-center items-center">
                   <h1 className="p-1 text-2xl mt-[-0.3rem] ml-2 font-extrabold tracking-tight text-black">
                                   Book<span className="block mt-[-.8rem]">Race</span>
                                 </h1>
-                                <div className="bg-white p-2 m-2 h-fit rounded-md flex items-center justify-between gap-2  border-4 border-sky-400">
+                                <div className="bg-white p-2 m-2 h-fit rounded-md flex items-center justify-between gap-2  border-4 border-yellow-400">
                                     <FontAwesomeIcon icon={faBook} size="xl" className=" my-1" />
                                        <CountUp  start={pagesRead2} end={pagesRead} duration={1} className="font-extrabold" />
                                 </div>
@@ -55,9 +79,9 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
     
                     <button
                       onClick={() => setIsOpen(!isOpen)}
-                      className={`text-black  z-1000 px-4 hover:text-gray-800 z-50 transition-all focus:outline-none focus:text-gray-800 ${isOpen ? 'animate-pulse z-50 translate-y-[0rem]' : 'translate-y-[0rem]'}`}
-                    > <p className='font-extrabold p-4 boxshadow bg-white  border-black rounded-md border-4'>{isOpen ? 'Close' : 'Menu'} </p>
-                      {/* <FontAwesomeIcon size='xl' icon={isOpen ? faArrowUp : faBars} /> */}
+                      className={`text-black  z-1000 px-4 hover:text-gray-800 z-50 transition-all focus:outline-none focus:text-gray-800 ${isOpen ? 'animate-pulse z-50 translate-y-[0rem]' : 'translate-y-[0rem]'}`}>
+                      {/* <p className='font-extrabold p-4 boxshadow bg-white  border-black rounded-md border-4'>{isOpen ? 'Close' : 'Menu'} </p> */}
+                      <FontAwesomeIcon size='xl' icon={isOpen ? faArrowUp : faBars} />
                     </button>
           </div>
       <div

@@ -40,8 +40,8 @@ const Home: NextPage = () => {
       </Head>
       {/* <Navbar /> */}
       <NewNav pagesRead={pagesRead}/>
-      <main className="flex flex-col h-11/12 items-center justify-center bg-gradient-to-r from-blue-400 to-sky-400 min-h-screen">
-        <div className="container flex flex-col items-center justify-center px-4 py-4 mt-4">
+      <main className="flex flex-col h-11/12 items-center py-20 justify-center bg-yellow-50 min-h-screen">
+        <div className="container flex flex-col items-center justify-center px-4 my-4">
           <h1 className="text-5xl font-extrabold tracking-tight text-black sm:text-[5rem] ">
             Book<span className="">Race</span>
           </h1>
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
         </div>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-8">          
             <Link
-              className="bg-sky-100 flex max-w-xs flex-col gap-6 boxshadow rounded-lg p-6  hover:bg-white border-4 border-black"
+              className="bg-slate-50 flex max-w-xs flex-col gap-6 boxshadow rounded-lg p-6 hover:border-4  hover:bg-white border-4 border-black"
               href="/booksearch"
         
             >
@@ -60,7 +60,7 @@ const Home: NextPage = () => {
             </Link>
 
             <Link
-              className="bg-sky-100 flex max-w-xs flex-col gap-1 boxshadow rounded-lg p-6  hover:bg-white border-4 border-black"
+              className="bg-slate-50 flex max-w-xs flex-col gap-1 boxshadow rounded-lg p-6  hover:bg-white border-4 border-black"
               href="/shelf"
         
             >
@@ -102,7 +102,7 @@ const AuthShowcase: React.FC = () => {
         
       </p> */}
       <button
-        className="bg-sky-100 rounded-md border-black border-2 px-10 py-3 boxshadow font-semibold no-underline transition hover:bg-white/20"
+        className="bg-slate-50 rounded-md border-black border-2 px-10 py-3 boxshadow font-semibold no-underline transition hover:bg-white"
         onClick={sessionData ? () => signOut() : () => signIn()}
       >
         {sessionData ? "Sign out" : "Sign in"}
