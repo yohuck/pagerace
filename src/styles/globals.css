@@ -3,8 +3,16 @@
 @tailwind utilities;
 
 .boxshadow{
-    box-shadow: 5px -5px black;
+    box-shadow: 3px -3px black;
+    translate: -3px 3px;
+    transition-duration: 100ms, 100ms;
+    transition-property: translate, box-shadow;
     }
+
+.boxshadow:hover, .boxshadow:focus{
+  box-shadow: none;
+  translate: 0px 0px;
+}
 
 
 .dfn {
