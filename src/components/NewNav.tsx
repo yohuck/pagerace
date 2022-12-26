@@ -37,7 +37,7 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
     const { data: yourShelf } = trpc.example.getUserBooks.useQuery(sessionData?.user?.id || 'nouser');
     const [pagesRead2, setPagesRead2] = useState(0)
 
-    const navRef = useRef(null);
+    const navRef = useRef<HTMLDivElement>(null);
 
 
 
