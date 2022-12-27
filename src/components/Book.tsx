@@ -56,6 +56,7 @@ const Book = ({ book, setCount, count}: {book: dbBook, count: number, setCount: 
 
     const startBook = async () => {
       if (!read){
+        
         const id = book.id;
         startReadingBook.mutate(id)
       }
@@ -93,7 +94,7 @@ const Book = ({ book, setCount, count}: {book: dbBook, count: number, setCount: 
         <div className="flex justify-start gap-2">
           <p className=" font-bold p-4 border-2 rounded-lg w-fit text-center hover:opacity-75 text-white border-black bg-[#140c0d]">{book.pages} pages</p>
           <button onClick={removeFromShelf}> <FontAwesomeIcon icon={faRemove} size="xl" className="aspect-square p-3 border-4 rounded-lg hover:opacity-75  border-[#e02339]" /></button>
-         {/* <button onClick={ startBook }>{read ? <FontAwesomeIcon icon={faCheck} size="xl" className="aspect-square p-3 border-4 rounded-lg hover:opacity-75 border-black bg-[#23e046]" /> : <FontAwesomeIcon icon={faCircleCheck} color="#23e046" size="xl" className="aspect-square p-3 rounded-lg hover:opacity-75 border-4 border-[#23e046]" />} Start</button> */}
+         <button onClick={ startBook }>{read ? <FontAwesomeIcon icon={faCheck} size="xl" className="aspect-square p-3 border-4 rounded-lg hover:opacity-75 border-black bg-[#23e046]" /> : <FontAwesomeIcon icon={faCircleCheck} color="#23e046" size="xl" className="aspect-square p-3 rounded-lg hover:opacity-75 border-4 border-[#23e046]" />} Start</button>
          <button onClick={ readBookShelf }>{read ? <FontAwesomeIcon icon={faCheck} size="xl" className="aspect-square p-3 border-4 rounded-lg hover:opacity-75 border-black bg-[#23e046]" /> : <FontAwesomeIcon icon={faCircleCheck} color="#23e046" size="xl" className="aspect-square p-3 rounded-lg hover:opacity-75 border-4 border-[#23e046]" />} Finish</button>
         </div> 
       </li> || <div></div>

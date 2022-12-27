@@ -42,7 +42,7 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
 
 
     useEffect(() => {
-        console.log('here')
+
 
         let all = 0
         yourShelf?.forEach(book => {
@@ -57,7 +57,6 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
 
 
     const router = useRouter()
-    console.log(router.pathname)
   const [isOpen, setIsOpen] = useState(false);
 
     

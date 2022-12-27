@@ -1,13 +1,23 @@
 import { useRouter } from 'next/router'
 import Navbar from '../../../components/NewNav';
 import { trpc } from '../../../utils/trpc';
+import ServerUserRow from '../../../components/ServerUserRow';
+import type { User } from '@prisma/client';
 
 export default function PostPage() {
+
   const router = useRouter()
   const { id } = router.query
+  
   const { data: serverData } = trpc.servers.getSingleServer.useQuery(id as string)
   const { data: serverUsers } = trpc.servers.getServerUsers.useQuery(id as string)
-  console.log(serverUsers)
+
+  const usersWithData = serverUsers?.map((user: User, index) => <ServerUserRow key={index} userId={user.id} user={user}   />)
+
+
+
+  
+
   return (
     
   
@@ -20,7 +30,10 @@ export default function PostPage() {
           <p className='flex justify-between'><span className="font-bold">Started At: </span>{serverData?.createdAt.toLocaleDateString()}</p>
           <p className='flex justify-between'><span className="font-bold">Privacy: </span>{serverData?.private ? "private" : "public"}</p>
       </div>
-      {serverUsers?.map((user) => <p key={user.id}>{user.name}</p>)}
+      <div>
+      {usersWithData
+      }
+      </div>
     </div>
   )
 }
