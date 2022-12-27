@@ -38,8 +38,6 @@ const BookSearch = () => {
  
     
   useEffect(() => {
-    console.log('here')
-    console.log(visible)
     let all = 0
     yourShelf?.forEach(book => {
      book.read ? all += Number(book.pages) : ''
@@ -72,20 +70,13 @@ const BookSearch = () => {
 
   useEffect(() => {
     if (author.split("").length > 2) {
-      console.log(author);
       fetch(`https://openlibrary.org/search.json?author=${author}`)
         .then((res) => res.json())
         .then((data) => setBooks(data));
     }
   }, [author]);
 
-  // useEffect((
-  //     () => {
-  //         if (books)  {
-  //             console.log(books);
-  //         }
-  //     }
-  // ), [books]);
+
 
    return (
     

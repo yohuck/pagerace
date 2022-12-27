@@ -77,7 +77,7 @@ model Book {
   startedAt  DateTime?
   finishedAt DateTime?
   read       Boolean   @default(false)
-  pages      String
+  pages      Int
   user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

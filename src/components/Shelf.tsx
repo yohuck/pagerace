@@ -1,7 +1,8 @@
-import { signIn, signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { trpc } from "../utils/trpc";
-import  Book  from "./Book"
+import Book from "./Book";
 import Navbar from "./NewNav";
+
 import { useState, useEffect } from "react";
 
 export default function Shelf() {
@@ -14,8 +15,7 @@ export default function Shelf() {
  
     
   useEffect(() => {
-    console.log('here')
-    console.log(visible)
+
     let all = 0
     yourShelf?.forEach(book => {
      book.read ? all += Number(book.pages) : ''

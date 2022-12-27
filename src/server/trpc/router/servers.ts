@@ -104,6 +104,22 @@ export const serverRouter = router({
         }
       })
     }),
+    aggServerUserBooks: publicProcedure
+    .input(z.string())
+    .query(({ctx, input}) => {
+      return ctx.prisma.book.aggregate({
+        _sum: {
+          pages: true
+        },
+        where: {
+          userId: input,
+          startedAt: {
+            gte: new Date(1-1-2020),
+            lte: new Date()
+          }
+        }
+      })
+    }),
     checkServerPassword: publicProcedure
     .input(z.string())
     .query(({ctx, input}) => {

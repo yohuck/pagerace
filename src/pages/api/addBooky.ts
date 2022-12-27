@@ -12,7 +12,7 @@ const addBooky = async (req: NextApiRequest, res: NextApiResponse) => {
     data: {
         author: data.author,
         title: data.title,
-        pages: data.pages,
+        pages: parseInt(data.pages),
         userId: data.userId
     }
   })

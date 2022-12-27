@@ -9,7 +9,7 @@ export type dbBook = {
     title: string,
     author: string,
     read: boolean,
-    pages: string,
+    pages: number,
     id: string,
 }
 

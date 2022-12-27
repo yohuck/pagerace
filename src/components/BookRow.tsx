@@ -13,8 +13,7 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
 
 
   const addToShelf = async (book: book, userId = 'clbv2cfr700009fvsvz5s2v7s' ) => {
-    console.log(book)
-    console.log(userId)
+
     setShelf("Added to Shelf");
     const a = await fetch("./api/addBooky", {
       method: "Post",
@@ -46,15 +45,16 @@ const BookRow = ({ book, index }: {book: book, index: number}) => {
           <p className="mb-5">{book.first_publish_year}</p>
           {book.subtitle && <p className="font-bold mb-5">{book.subtitle}</p>}
           
-          <p className="font-bold mb-5 h-[100px] overflow-y-auto">Author(s):
-          <br></br>
+          <p className="font-bold overflow-y-auto">Author(s):</p>
+          <div className="mb-10">
           {book.author_name?.map((author, index) => (
-            <span key={index} className="font-normal">
+            <span key={index} className="">
                {` ${author}`}
               {index < book.author_name.length - 1 ? ", " : " "}
             </span>
           ))}
-          </p>
+          </div>
+         
         </div>
         <div className="flex justify-between">
           <p className=" font-bold p-2 border-2 rounded-lg w-fit text-center hover:opacity-75 text-white border-black bg-[#140c0d]">{book.number_of_pages_median} pages</p>
