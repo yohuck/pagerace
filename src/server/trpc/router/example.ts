@@ -36,7 +36,7 @@ export const exampleRouter = router({
         title: "Crucial Conversations",
         author: "Waylon Jennings",
         userId: 'clblolfrd00009f00va83vney',
-        pages: "223",
+        pages: 223,
       },
     }); }), 
     deleteBook: publicProcedure
