@@ -12,11 +12,26 @@ export default function PostPage() {
   const { data: serverData } = trpc.servers.getSingleServer.useQuery(id as string)
   const { data: serverUsers } = trpc.servers.getServerUsers.useQuery(id as string)
 
-  const usersWithData = serverUsers?.map((user: User, index) => <ServerUserRow key={index} userId={user.id} user={user}   />)
+  const usersWithData = serverUsers?.map(
+    (user, index) => {
+      const thisPeriod = user.books
+      let total = 0;
+      thisPeriod.forEach(book => total += Number(book.pages))
+      console.log({total: total})
 
-
-
+     return( <ServerUserRow data-count={total} key={index} userId={user.id} user={user}   />)
+    }
   
+    )
+
+    usersWithData?.forEach(user => {
+      console.log('this is')
+      console.log(parseInt(user.props["data-count"]))
+    })
+
+    const a = usersWithData?.sort((a,b) => parseInt(a.props["data-count"]) > parseInt(b.props["dataCount"]) ? 1 : -1)
+
+
 
   return (
     
@@ -31,8 +46,8 @@ export default function PostPage() {
           <p className='flex justify-between'><span className="font-bold">Privacy: </span>{serverData?.private ? "private" : "public"}</p>
       </div>
       <div>
-      {usersWithData
-      }
+ 
+      {a}
       </div>
     </div>
   )

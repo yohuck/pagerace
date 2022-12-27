@@ -85,6 +85,9 @@ export const serverRouter = router({
               serverId: input
             }
           }
+        },
+        include: {
+          books: true
         }
       })
     }),
