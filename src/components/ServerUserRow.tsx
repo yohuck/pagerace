@@ -1,24 +1,43 @@
 import type { User } from "@prisma/client"
 import { trpc } from "../utils/trpc"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faArrowUp, faHouse, faBookBookmark, faBook, faFlagCheckered, faMagnifyingGlass, faRightFromBracket, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
+import { useState } from "react";
 
 const ServerUserRow = ({userId, user}: {userId: string, user: User}) => {
-    // const { data: serverData } = trpc.servers.getServerUserBooks.useQuery(userId)
-    // let totalPages = 0
+    const { data: serverData } = trpc.servers.getServerUserBooks.useQuery(userId)
+    let totalPages = 0
+    const [bookVistible, setBookVisible] = useState(false)
 
    
-   const { data: aggBooks } = trpc.servers.aggServerUserBooks.useQuery(userId)
 
-   console.log(aggBooks?._sum.pages)
+
+
   
-    // serverData?.forEach(book => totalPages += Number(book.pages))
+    serverData?.forEach(book => totalPages += Number(book.pages))
    return( 
-   <div data-pagecount={aggBooks?._sum.pages}  >
-    <p>{user.name}</p>
-    <p>{aggBooks?._sum.pages || 0} pages read</p>
+   <li className="px-4 py-1 gap-4 w-full border flex flex-col  list-inside" >
+
+    <div className="flex justify-between w-full">
+      <div className="flex gap-4">
+        <p className="border rounded-full px-4 bg-green-500 font-semibold list-item">{}</p>
+            <p className="">{user.name}</p>
+      </div>
+    <div className="flex items-center">
+      <p className="">{totalPages}</p>
+      <FontAwesomeIcon icon={faBook} className="px-2" onClick={() => setBookVisible(!bookVistible) } />
+    </div>
+    </div>
+    <ul className={`w-[100%] mb-2 ${bookVistible ? 'block': 'hidden' }`}>
+    { 
+    serverData?.map((book, index) =>  (<li key={index} className={`px-4 py-2 flex justify-between ${index % 2 === 0 ? 'bg-slate-100' : 'bg-slate-200'}`}><p>{book.title}</p><p>{book.pages}</p></li>)
+    ) }
+    { totalPages === 0 && 'No completed book in this period.'}
+    </ul>
     {/* {serverData?.map((book) => {
       <p> {book.title}</p> 
     })} */}
-    </div>)
+    </li>)
 }
 
 export default ServerUserRow

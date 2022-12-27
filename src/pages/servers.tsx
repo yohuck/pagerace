@@ -23,22 +23,16 @@ export default function ServerPage() {
   const [pagesRead, setPagesRead] = useState(0)
 
   useEffect(() => {
-    console.log('here')
- 
     let all = 0
     yourShelf?.forEach(book => {
      book.read ? all += Number(book.pages) : ''
               })
-  
     setPagesRead(all)
-
-    
   }, [yourShelf])
  
 
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log({ serverName, serverDescription, serverPrivate, serverPassword });
     if (sessionData?.user?.id){
       addRouter.mutate({name: serverName, description: serverDescription, passcode: serverPassword, private: eval(serverPrivate), adminUserId: sessionData.user.id })
       setFormOpen(!formOpen)

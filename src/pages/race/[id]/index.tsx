@@ -26,12 +26,14 @@ export default function PostPage() {
 
     usersWithData?.forEach(user => {
       console.log('this is')
-      console.log(parseInt(user.props["data-count"]))
+      console.log(user.props["data-count"])
     })
 
-    const a = usersWithData?.sort((a,b) => parseInt(a.props["data-count"]) > parseInt(b.props["dataCount"]) ? 1 : -1)
+    const letsgo = usersWithData?.sort((a,b) => b.props["data-count"] - a.props["data-count"])
 
+    // const a = usersWithData?.sort((a,b) => b.props["data-count"] < a.props["dataCount"] ? -1 : 0 )
 
+    // console.log(a)
 
   return (
     
@@ -45,10 +47,11 @@ export default function PostPage() {
           <p className='flex justify-between'><span className="font-bold">Started At: </span>{serverData?.createdAt.toLocaleDateString()}</p>
           <p className='flex justify-between'><span className="font-bold">Privacy: </span>{serverData?.private ? "private" : "public"}</p>
       </div>
-      <div>
+      <ol className='list-decimal'>
  
-      {a}
-      </div>
+      {letsgo}
+      </ol>
+    
     </div>
   )
 }
