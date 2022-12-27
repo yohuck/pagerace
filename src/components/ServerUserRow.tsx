@@ -16,16 +16,16 @@ const ServerUserRow = ({userId, user}: {userId: string, user: User}) => {
   
     serverData?.forEach(book => totalPages += Number(book.pages))
    return( 
-   <li className="px-4 py-1 gap-4 w-full border flex flex-col  list-inside" >
+   <li className="px-4 py-1 gap-4 w-full border flex flex-col  list-inside" data-count={totalPages} >
 
     <div className="flex justify-between w-full">
       <div className="flex gap-4">
-        <p className="border rounded-full px-4 bg-green-500 font-semibold list-item">{}</p>
+        <p className="border rounded-full px-3 bg-green-500 font-semibold list-item">{}</p>
             <p className="">{user.name}</p>
       </div>
     <div className="flex items-center">
       <p className="">{totalPages}</p>
-      <FontAwesomeIcon icon={faBook} className="px-2" onClick={() => setBookVisible(!bookVistible) } />
+      <FontAwesomeIcon icon={faBook} className="px-2 hover:opacity-70" onClick={() => setBookVisible(!bookVistible) } />
     </div>
     </div>
     <ul className={`w-[100%] mb-2 ${bookVistible ? 'block': 'hidden' }`}>
