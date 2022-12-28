@@ -13,6 +13,9 @@ export default function ServerPage() {
   const [serverDescription, setServerDescription] = useState('');
   const [serverPrivate, setServerPrivate] = useState('false');
   const [serverPassword, setServerPassword] = useState('');
+  const [serverStartDate, setServerStartDate] = useState('');
+  const [ altServerStartDate, setAltServerStartDate] = useState(new Date())
+  const [serverEndDate, setServerEndDate] = useState('');
   const { data: publicServers } = trpc.servers.getAllServers.useQuery();
   const { data: sessionData} = useSession();
   const addRouter = trpc.servers.createServer.useMutation();
@@ -34,7 +37,8 @@ export default function ServerPage() {
   function handleSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
     if (sessionData?.user?.id){
-      addRouter.mutate({name: serverName, description: serverDescription, passcode: serverPassword, private: eval(serverPrivate), adminUserId: sessionData.user.id })
+      console.log(serverStartDate)
+      addRouter.mutate({name: serverName, description: serverDescription, passcode: serverPassword, private: eval(serverPrivate), adminUserId: sessionData.user.id, startDate: new Date(serverStartDate), endDate: new Date(serverEndDate) })
       setFormOpen(!formOpen)
       window.location.reload()
     }
@@ -52,26 +56,52 @@ export default function ServerPage() {
       className={`mx-auto h-0 w-full  bg-neutral-100 mt-[60px] scale-0   ${formOpen ? 'scale-100 min-h-screen' : 'scale-0'} swoopIn transition duration-200 ease-in-out transform      rounded-md  flex-col items-center`}
       // style={{ display: formOpen ? 'block' : 'hidden' }}
        onSubmit={handleSubmit}>
-          <div className="flex flex-col md:border-4 rounded-md border-black w-fit mx-auto items-center mt-10 p-4  ">
-            <h2 className='text-3xl mb-6'>Create A Race</h2>
-                    <label className='text-center flex flex-col text-2xl  font-black tracking-tight'>
-            Server Name:
+          <div className="flex flex-col rounded-md bg-neutral-100 border-black w-[100%] mx-auto items-center mt-10 p-4  ">
+            <h2 className='text-3xl mb-6 font-extrabold'>Create A Race</h2>
+                    <label className='text-center flex flex-col items-center w-[100%] text-lg font-bold tracking-tight'>
+            Title:
             <input
               type="text"
-              className='mx-4 boxshadow border-2 border-black p-4 rounded-md font-bold text-xl'
+              className='mx-4 boxshadow border-2 w-[100%] border-black p-2 rounded-md'
               value={serverName}
               onChange={event => setServerName(event.target.value)}
             />
                     </label>
                     <br />
-                    <label className='text-center flex flex-col text-2xl font-black tracking-tight'>
+                    <label className='text-center w-[100%] text-lg flex flex-col items-center font-bold tracking-tight'>
             Server Description:
             <textarea
-            className='mx-4 boxshadow border-2 border-black p-4 rounded-md font-bold text-x'
+            className='mx-4 boxshadow border-2 w-[100%] border-black p-2 rounded-md font-bold'
               value={serverDescription}
               onChange={event => setServerDescription(event.target.value)}
             />
                     </label>
+                    <br />
+                    <label className='text-center w-[100%] flex flex-col font-bold text-lg tracking-tight'>
+            Start Date:
+            <input
+            type="date"
+            className='boxshadow border-2 border-black p-4 rounded-md font-bold'
+              value={serverStartDate}
+              onChange={event => {
+              
+                setServerStartDate(event.target.value)
+               
+              }}
+            />
+                    </label>
+                    <br />
+                    <label className='text-center flex flex-col w-[100%] text-lg font-bold tracking-tight'>
+            End Date:
+            <input
+            type="date"
+            className='boxshadow border-2 border-black p-4 rounded-md font-bold'
+              value={serverEndDate}
+              onChange={event => setServerEndDate(event.target.value)}
+            />
+                    </label>
+                    <br />
+
                     <br />
                     <label
             className='text-center text-2xl font-black tracking-tight'

@@ -4,8 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faArrowUp, faHouse, faBookBookmark, faBook, faFlagCheckered, faMagnifyingGlass, faRightFromBracket, faRightToBracket} from '@fortawesome/free-solid-svg-icons';
 import { useState } from "react";
 
-const ServerUserRow = ({userId, user}: {userId: string, user: User}) => {
-    const { data: serverData } = trpc.servers.getServerUserBooks.useQuery(userId)
+const ServerUserRow = ({userId, user, server}: {userId: string, user: User, server: {
+  startDate: Date,
+  endDate: Date
+}}) => {
+    const { data: serverData } = trpc.servers.getServerUserBooks.useQuery({userId: userId, startDate: server.startDate, endDate: server.endDate})
     let totalPages = 0
     const [bookVistible, setBookVisible] = useState(false)
 

@@ -32,8 +32,11 @@ export default function PostPage() {
   const { id } = router.query
   
   const { data: serverData } = trpc.servers.getSingleServer.useQuery(id as string)
-  const { data: serverUsers } = trpc.servers.getServerUsers.useQuery(id as string)
 
+
+  
+  const { data: serverUsers } = trpc.servers.getServerUsers.useQuery(id as string)
+  
   const usersWithData = serverUsers?.map(
     (user, index) => {
       const thisPeriod = user.books
@@ -43,28 +46,19 @@ export default function PostPage() {
         total += Number(book.pages)
         }
       })
-      console.log({total: total})
+    
 
-     return( <ServerUserRow data-count={total} key={index} userId={user.id} user={user}   />)
+     return( <ServerUserRow data-count={total} key={index} userId={user.id} server={{startDate: serverData?.startDate, endDate: serverData?.endDate}} user={user}   />)
     }
   
     )
 
-    usersWithData?.forEach(user => {
-      console.log('this is')
-      console.log(user.props["data-count"])
-    })
-
+ 
     const letsgo = usersWithData?.sort((a,b) => parseInt(b.props["data-count"]) - parseInt(a.props["data-count"]) )
 
-    console.log(letsgo)
+  
 
 
-
-
-    // const a = usersWithData?.sort((a,b) => b.props["data-count"] < a.props["dataCount"] ? -1 : 0 )
-
-    // console.log(a)
 
   return (
     
@@ -75,7 +69,9 @@ export default function PostPage() {
           <h1 className='mt-24 flex justify-between'><span className="font-bold">Server ID: </span>{serverData?.id}</h1>
           <p className='flex justify-between'><span className="font-bold">Description: </span>{serverData?.description}</p>
           <p className='flex justify-between'><span className="font-bold">Server Name: </span>{serverData?.name}</p>
-          <p className='flex justify-between'><span className="font-bold">Started At: </span>{serverData?.createdAt.toLocaleDateString()}</p>
+          <p className='flex justify-between'><span className="font-bold">Race Start: </span>{serverData?.startDate?.toDateString()|| 'No specified start date'}</p>
+          <p className='flex justify-between'><span className="font-bold">Race End: </span>{serverData?.endDate?.toDateString() || 'No specified end date'}</p>
+      
           <p className='flex justify-between'><span className="font-bold">Privacy: </span>{serverData?.private ? "private" : "public"}</p>
       </div>
       <ol className='list-decimal'>

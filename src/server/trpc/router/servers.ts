@@ -9,19 +9,32 @@ export const serverRouter = router({
       description: z.string().nullish(),
       adminUserId: z.string(),
       private: z.boolean(),
-      startDate: z.date().nullish(),
-      endDate: z.date().nullish(),
+      startDate: z.date(),
+      endDate: z.date(),
       passcode: z.string().nullable()
     }))
     .mutation(({ctx, input}) => {
+
+     const dater = (input: Date) => {
+      const date = new Date(input);
+      date.setHours(date.getHours() + 14);
+      const pad = (n: number): string => n.toString().padStart(2, "0");
+      const result = date.getFullYear() + "-" + pad(date.getMonth() + 1) + "-" + pad(date.getDate()) + "T" + pad(date.getHours()) + ":" + pad(date.getMinutes()) + ":" + pad(date.getSeconds()) + '.000Z' ;
+      return result
+    } 
+
+     const start = dater(input.startDate)
+     const end = dater(input.endDate)
+
+
         return ctx.prisma.server.create({
           data: {
             adminUserId: input.adminUserId,
             description: input.description,
             name: input.name,
             private: input.private,
-            startDate: input.startDate,
-            endDate: input.endDate,
+            startDate: start,
+            endDate: end,
             passcode: input.passcode,
           }
         });
@@ -92,14 +105,14 @@ export const serverRouter = router({
       })
     }),
     getServerUserBooks: publicProcedure
-    .input(z.string())
+    .input(z.object({userId: z.string(), startDate: z.date(), endDate: z.date()}))
     .query(({ctx, input}) => {
       return ctx.prisma.book.findMany({
         where: {
-          userId: input,
+          userId: input.userId,
           startedAt: {
-            gte: new Date(1-1-2020),
-            lte: new Date()
+            gte: input.startDate,
+            lte: input.endDate,
           }
         }
       })
