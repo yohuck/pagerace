@@ -48,7 +48,7 @@ export default function PostPage() {
       })
     
 
-     return( <ServerUserRow data-count={total} key={index} userId={user.id} server={{startDate: serverData?.startDate, endDate: serverData?.endDate}} user={user}   />)
+     return( <ServerUserRow data-count={total} key={index} userId={user.id} server={{startDate: serverData?.startDate as Date, endDate: serverData?.endDate as Date}} user={user}   />)
     }
   
     )
