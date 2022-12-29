@@ -19,7 +19,7 @@ const ServerUserRow = ({userId, user, server}: {userId: string, user: User, serv
   
     serverData?.forEach(book => totalPages += Number(book.pages))
    return( 
-   <li className="px-4 py-1 gap-4 w-full border flex flex-col  list-inside" data-count={totalPages} >
+   <li className="px-4 py-1 gap-4 w-full border flex flex-col max-w-[1000px] mx-auto list-inside" data-count={totalPages} >
 
     <div className="flex justify-between w-full">
       <div className="flex gap-4">

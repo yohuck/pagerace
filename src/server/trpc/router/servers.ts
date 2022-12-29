@@ -100,7 +100,7 @@ export const serverRouter = router({
           }
         },
         include: {
-          books: true
+          books: true,
         }
       })
     }),
