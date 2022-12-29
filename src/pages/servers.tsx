@@ -55,7 +55,7 @@ export default function ServerPage() {
  
 
       <form
-      className={`mx-auto h-0 w-full max-w-[500px]  bg-neutral-100 mt-[60px] scale-0   ${formOpen ? 'scale-100 min-h-screen' : 'scale-0'} swoopIn transition duration-200 ease-in-out transform      rounded-md  flex-col items-center`}
+      className={`mx-auto h-0 w-full max-w-[500px]  bg-neutral-100 mt-[60px] scale-y-0  ${formOpen ? 'scale-y-100 min-h-screen' : 'scale-y-0'} swoopIn duration-40 ease-in transform      rounded-md  flex-col items-center`}
       // style={{ display: formOpen ? 'block' : 'hidden' }}
        onSubmit={handleSubmit}>
           <div className="flex flex-col rounded-md bg-neutral-100 border-black w-[100%] mx-auto items-center mt-4 p-4  ">
