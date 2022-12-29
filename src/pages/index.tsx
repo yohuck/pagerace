@@ -42,8 +42,8 @@ const Home: NextPage = () => {
       <NewNav pagesRead={pagesRead}/>
       <main className="flex flex-col h-11/12 items-center py-24 justify-center bg-yellow-50 min-h-screen">
         <div className="container flex flex-col items-center justify-center px-4 my-4">
-          <h1 className="text-5xl font-extrabold tracking-tight text-black sm:text-[5rem] ">
-            Book<span className="">Race</span>
+          <h1 className="text-5xl font-extrabold tracking-tight m-1 text-black sm:text-[5rem] ">
+            Page<span className="">Race</span>
           </h1>
           <p className="text-2xl font-black ">Read your way to victory!</p>
         </div>

@@ -65,7 +65,7 @@ const BurgerMenu = ( {pagesRead}: {pagesRead: number}) => {
     <div className={`flex w-full justify-between items-center fixed z-50  border-black`} ref={navRef} >
                   <div className="flex gap-2 py-2 justify-center items-center">
                   <h1 className="p-1 text-2xl mt-[-0.3rem] ml-2 font-extrabold tracking-tight text-black">
-                                  Book<span className="block mt-[-.8rem]">Race</span>
+                                  Page<span className="block mt-[-.8rem]">Race</span>
                                 </h1>
                                 <div className="bg-white p-2 m-2 h-fit rounded-md flex items-center justify-between gap-2  border-4 border-yellow-400">
                                     <FontAwesomeIcon icon={faBook} size="xl" className=" my-1" />
